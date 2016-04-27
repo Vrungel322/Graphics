@@ -26,9 +26,19 @@ public class Presenter {
             .baseUrl(ILogIn.BASE_URL)
             .build();
     private ILogIn intf = retrofit.create(ILogIn.class);
+    private IView mView;
 
     public Presenter(Context context) {
         this.context = context;
+    }
+
+    public void setView(IView view) {
+        mView = view;
+    }
+
+    public void login(String login, String password) {
+        makeCall(login, password);
+        mView.showLoginProgressDialog();
     }
 
     public void makeCall(String login, String pass){
@@ -39,19 +49,27 @@ public class Presenter {
         call.enqueue(new Callback<LogInResponse>() {
             @Override
             public void onResponse(Call<LogInResponse> call, Response<LogInResponse> response) {
-                Toast.makeText(context, "great", Toast.LENGTH_SHORT).show();
-                LogInResponse lir = new LogInResponse(response.body().getLang(),
-                        response.body().getSuccess());
-                if (lir.getSuccess()){
-                    context.startActivity(new Intent(context, MainActivity.class)
-                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                if (response.code() == 200) {
+                    LogInResponse lir = new LogInResponse(response.body().getLang(),
+                            response.body().getSuccess());
+                    if (lir.getSuccess()){
+                        context.startActivity(new Intent(context, MainActivity.class)
+                                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                    }
+                } else {
+                    Toast.makeText(context, "FAIL. WRONG DATA", Toast.LENGTH_SHORT).show();
                 }
-
+                mView.dismissProgressDialog();
             }
             @Override
             public void onFailure(Call<LogInResponse> call, Throwable t) {
                 Toast.makeText(context, "FAIL. WRONG DATA", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public interface IView {
+        void showLoginProgressDialog();
+        void dismissProgressDialog();
     }
 }

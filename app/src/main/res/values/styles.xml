@@ -20,4 +20,10 @@
         <item name="android:background">@color/black_overlay</item>
     </style>
 
+    <style name="AppTheme.Dark.Dialog" parent="Theme.AppCompat.Dialog">
+        <item name="colorAccent">@color/colorTextIcons</item>
+        <item name="android:textColorPrimary">@color/colorDivider</item>
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
+
 </resources>
