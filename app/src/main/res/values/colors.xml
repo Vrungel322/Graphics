@@ -9,4 +9,7 @@
     <color name="standart">#7bf4e8</color>
     <color name="focused">#ffffff</color>
     <color name="pressed">#ffffff</color>
+
+    <color name="colorTextIcons">#FFFFFF</color>
+    <color name="colorDivider">#bfbfbf</color>
 </resources>

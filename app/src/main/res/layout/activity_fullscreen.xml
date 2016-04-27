@@ -46,5 +46,4 @@
             android:background="@drawable/button_style"
             android:text="Log in" />
     </LinearLayout>
-
 </FrameLayout>
