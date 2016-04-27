@@ -4,12 +4,17 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
 public class FullscreenActivity extends AppCompatActivity {
+    private EditText etLogin;
+    private EditText etPassword;
+    private Button bLogIn;
 
 
     @Override
@@ -22,6 +27,10 @@ public class FullscreenActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.hide();
         }
+
+        etLogin = (EditText) findViewById(R.id.etLogin);
+        etPassword = (EditText) findViewById(R.id.etPassword);
+        bLogIn = (Button) findViewById(R.id.bLogIn);
     }
 
     @Override
