@@ -56,6 +56,9 @@ public class Presenter {
                         context.startActivity(new Intent(context, MainActivity.class)
                                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                     }
+                    else {
+                        Toast.makeText(context, "FAIL. WRONG DATA", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
                     Toast.makeText(context, "FAIL. WRONG DATA", Toast.LENGTH_SHORT).show();
                 }
