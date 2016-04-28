@@ -2,6 +2,7 @@ package nanddgroup.graphics.remote;
 
 import java.util.Map;
 
+import nanddgroup.graphics.model.LogInResponse;
 import retrofit2.Call;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
