@@ -17,10 +17,12 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import nanddgroup.graphics.presenters.MainPresenter;
 
 public class MainActivity extends AppCompatActivity {
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
+    private MainPresenter mp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         setToolbar();
+        mp = new MainPresenter();
+        mp.makeCall();
     }
 
     private void setToolbar() {

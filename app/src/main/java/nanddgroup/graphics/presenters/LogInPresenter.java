@@ -1,4 +1,4 @@
-package nanddgroup.graphics;
+package nanddgroup.graphics.presenters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,8 +7,9 @@ import android.widget.Toast;
 import java.util.HashMap;
 import java.util.Map;
 
+import nanddgroup.graphics.MainActivity;
 import nanddgroup.graphics.remote.ILogIn;
-import nanddgroup.graphics.remote.LogInResponse;
+import nanddgroup.graphics.model.LogInResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

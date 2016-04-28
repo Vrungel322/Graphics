@@ -1,5 +1,5 @@
 
-package nanddgroup.graphics.remote;
+package nanddgroup.graphics.model;
 
 public class LogInResponse {
 
