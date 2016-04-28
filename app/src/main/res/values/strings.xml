@@ -2,7 +2,7 @@
     <string name="app_name">Graphics</string>
 
     <string name="title_activity_fullscreen">FullscreenActivity</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="progress_authenticate">Authenticating…</string>
+    <string name="title">Infographics</string>
+    <string name="LogOut">Log out</string>
 </resources>
