@@ -16,11 +16,11 @@ import butterknife.OnClick;
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class FullscreenActivity extends AppCompatActivity implements Presenter.IView{
+public class FullscreenActivity extends AppCompatActivity implements LogInPresenter.IView{
     @Bind(R.id.etLogin) EditText etLogin;
     @Bind(R.id.etPassword) EditText etPassword;
     @Bind(R.id.bLogIn) Button bLogIn;
-    private Presenter p;
+    private LogInPresenter p;
     private String login = "vlad.palamarchuk";
     private String password = "1234.1234";
     private ProgressDialog mProgressDialog;
@@ -34,7 +34,7 @@ public class FullscreenActivity extends AppCompatActivity implements Presenter.I
         ButterKnife.bind(this);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {actionBar.hide();}
-        p = new Presenter(getApplicationContext());
+        p = new LogInPresenter(getApplicationContext());
         p.setView(this);
 
         etLogin.setText(login);

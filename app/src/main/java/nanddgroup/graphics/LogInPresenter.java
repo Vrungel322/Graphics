@@ -18,7 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * Created by Nikita on 27.04.2016.
  */
-public class Presenter {
+public class LogInPresenter {
 
     private Context context;
     private Retrofit retrofit = new Retrofit.Builder()
@@ -28,7 +28,7 @@ public class Presenter {
     private ILogIn intf = retrofit.create(ILogIn.class);
     private IView mView;
 
-    public Presenter(Context context) {
+    public LogInPresenter(Context context) {
         this.context = context;
     }
 
