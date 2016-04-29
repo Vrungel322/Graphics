@@ -20,16 +20,14 @@ import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.mikepenz.iconics.typeface.FontAwesome;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.squareup.otto.Bus;
+import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,67 +39,28 @@ import nanddgroup.graphics.presenters.MainPresenter;
 public class MainActivity extends AppCompatActivity {
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
+    @Bind(R.id.listView1) ListView lv;
     private MainPresenter mp;
+    private ChartDataAdapter cda;
+    private ArrayList<BarData> list;
+    public static Bus bus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        bus = new Bus();
+        bus.register(this);
         setToolbar();
         mp = new MainPresenter();
-        mp.makeCall();
-        
-        drawGraphics();
+
     }
 
-    private void drawGraphics() {
-        ListView lv = (ListView) findViewById(R.id.listView1);
-        ArrayList<BarData> list = new ArrayList<BarData>();
-        for (int i = 0; i < 4; i++) {
-            list.add(generateData(i + 1));
-        }
-        ChartDataAdapter cda = new ChartDataAdapter(getApplicationContext(), list);
+    @Subscribe
+    public void showList(ArrayList<BarData> list) {
+        cda = new ChartDataAdapter(getApplicationContext(), list);
         lv.setAdapter(cda);
-    }
-
-    private BarData generateData(int cnt) {
-
-        ArrayList<BarEntry> entries = new ArrayList<BarEntry>();
-
-        for (int i = 0; i < 12; i++) {
-            entries.add(new BarEntry((int) (Math.random() * 70) + 30, i));
-        }
-
-        BarDataSet d = new BarDataSet(entries, "New DataSet " + cnt);
-        d.setBarSpacePercent(20f);
-        d.setColors(ColorTemplate.VORDIPLOM_COLORS);
-        d.setBarShadowColor(Color.rgb(203, 203, 203));
-
-        ArrayList<IBarDataSet> sets = new ArrayList<IBarDataSet>();
-        sets.add(d);
-
-        BarData cd = new BarData(getMonths(), sets);
-        return cd;
-    }
-
-    private ArrayList<String> getMonths() {
-
-        ArrayList<String> m = new ArrayList<String>();
-        m.add("Jan");
-        m.add("Feb");
-        m.add("Mar");
-        m.add("Apr");
-        m.add("May");
-        m.add("Jun");
-        m.add("Jul");
-        m.add("Aug");
-        m.add("Sep");
-        m.add("Okt");
-        m.add("Nov");
-        m.add("Dec");
-
-        return m;
     }
 
     private void setToolbar() {
