@@ -141,7 +141,7 @@ public class MainPresenter {
         ArrayList<BarEntry> entries = new ArrayList<BarEntry>();
 
         for (int i = 0; i < countOfDiscrets; i++) {
-            entries.add(new BarEntry(profit_month, i));
+            entries.add(new BarEntry(profit_month[i], i));
         }
 
         BarDataSet d = new BarDataSet(entries, "New DataSet " + cnt);
