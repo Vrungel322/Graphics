@@ -2,6 +2,7 @@ package nanddgroup.graphics.presenters;
 
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -27,9 +28,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainPresenter {
     public int countOfDiscrets;
     public float[] profit_month;
-    public ArrayList<Float> total_profit;
-    public ArrayList<Float> profit_month_money;
-    public ArrayList<Float> profit;
+    public float[] total_profit;
+    public float[] profit_month_money;
+    public float[] profit;
     public ArrayList<String> date;
 
     private Retrofit retrofit = new Retrofit.Builder()
@@ -47,51 +48,12 @@ public class MainPresenter {
         at.execute();
     }
 
-//    public ArrayList<BarData> makeCall(){
-//        total_profit = new ArrayList<Float>();
-//        profit_month_money = new ArrayList<Float>();
-//        profit = new ArrayList<Float>();
-//        date = new ArrayList<String>();
-//        list = new ArrayList<BarData>();
-//        items = new ArrayList<Item>();
-//        call = intf.getData();
-////        call.enqueue(new Callback<DataResponse>() {
-////            @Override
-////            public void onResponse(Call<DataResponse> call, Response<DataResponse> response) {
-////                Log.e("resp", String.valueOf(response.code() + " " + response.body().getTotal()));
-////                countOfDiscrets = response.body().getTotal();
-////                profit_month = new float[countOfDiscrets];
-////                for (int i = 0; i < countOfDiscrets; i++){
-////                    items.add(new Item(response.body().getItems().get(i).getProfit(),
-////                            response.body().getItems().get(i).getProfitMonthMoney(),
-////                            response.body().getItems().get(i).getTotalProfit(),
-////                            response.body().getItems().get(i).getProfitMonth(),
-////                            response.body().getItems().get(i).getDate()));
-////
-////                    profit.add(Float.valueOf(items.get(i).getProfit()));
-////                    profit_month_money.add(Float.valueOf(items.get(i).getProfitMonthMoney()));
-////                    total_profit.add(Float.valueOf(items.get(i).getTotalProfit()));
-////                    profit_month[i] = (Float.valueOf(items.get(i).getProfitMonth()));
-////                    date.add(String.valueOf(Float.valueOf(items.get(i).getDate())));
-////                }
-////            }
-////
-////            @Override
-////            public void onFailure(Call<DataResponse> call, Throwable t) {
-////
-////            }
-////        });
-//        return list;
-//    }
 
     private class MyAsyncTask extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            total_profit = new ArrayList<Float>();
-            profit_month_money = new ArrayList<Float>();
-            profit = new ArrayList<Float>();
             date = new ArrayList<String>();
             list = new ArrayList<BarData>();
             items = new ArrayList<Item>();
@@ -105,19 +67,23 @@ public class MainPresenter {
                 Response<DataResponse> dr = call.execute();
                 countOfDiscrets = dr.body().getTotal();
                 profit_month = new float[countOfDiscrets];
+                total_profit = new float[countOfDiscrets];
+                profit_month_money = new float[countOfDiscrets];
+                profit = new float[countOfDiscrets];
 //                Log.e("resp", String.valueOf(dr.code() + " " + countOfDiscrets));
-                for (int i = 0; i < countOfDiscrets; i++){
+                for (int i = 0; i < countOfDiscrets; i++) {
 //                    items.add(new Item(dr.body().getItems().get(i).getProfit(),
 //                            dr.body().getItems().get(i).getProfitMonthMoney(),
 //                            dr.body().getItems().get(i).getTotalProfit(),
 //                            dr.body().getItems().get(i).getProfitMonth(),
 //                            dr.body().getItems().get(i).getDate()));
 
-                    profit.add(Float.valueOf(dr.body().getItems().get(i).getProfit()));
-                    profit_month_money.add(Float.valueOf(dr.body().getItems().get(i).getProfitMonthMoney()));
-                    total_profit.add(Float.valueOf(dr.body().getItems().get(i).getTotalProfit()));
+                    profit[i] = (Float.valueOf(dr.body().getItems().get(i).getProfit()));
+                    profit_month_money[i] = (Float.valueOf(dr.body().getItems().get(i).getProfitMonthMoney()));
+                    total_profit[i] = (Float.valueOf(dr.body().getItems().get(i).getTotalProfit()));
                     profit_month[i] = (Float.valueOf(dr.body().getItems().get(i).getProfitMonth()));
                     date.add(dr.body().getItems().get(i).getDate());
+                    Log.e("TESTresponse", String.valueOf(countOfDiscrets));
                 }
 
             } catch (IOException e) {
@@ -129,22 +95,49 @@ public class MainPresenter {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            list.add(generateData1(1, profit_month, countOfDiscrets));
+            for (int i = 0; i <= 3; i++) {
+                list.add(generateData1(i, profit_month, total_profit, profit_month_money, profit, countOfDiscrets));
+            }
             MainActivity.bus.post(list);
         }
     }
 
 
-
-    private BarData generateData1(int cnt, float[] profit_month, int countOfDiscrets) {
+    private BarData generateData1(int cnt, float[] profit_month, float[] total_profit, float[] profit_month_money,
+                                  float[] profit, int countOfDiscrets) {
 
         ArrayList<BarEntry> entries = new ArrayList<BarEntry>();
+        String chartName = "";
 
-        for (int i = 0; i < countOfDiscrets; i++) {
-            entries.add(new BarEntry(profit_month[i], i));
+        switch (cnt) {
+            case 0:
+                for (int i = 0; i < countOfDiscrets; i++) {
+                    entries.add(new BarEntry(profit_month[i], i));
+                    chartName = "Profit per month";
+                }
+                break;
+            case 1:
+                for (int i = 0; i < countOfDiscrets; i++) {
+                    entries.add(new BarEntry(total_profit[i], i));
+                    chartName = "Total profit";
+                }
+                break;
+            case 2:
+                for (int i = 0; i < countOfDiscrets; i++) {
+                    entries.add(new BarEntry(profit_month_money[i], i));
+                    chartName = "profit_month_money";
+                }
+                break;
+            case 3:
+                for (int i = 0; i < countOfDiscrets; i++) {
+                    entries.add(new BarEntry(profit[i], i));
+                    chartName = "Profit";
+                }
+                break;
         }
 
-        BarDataSet d = new BarDataSet(entries, "New DataSet " + cnt);
+
+        BarDataSet d = new BarDataSet(entries, chartName);
         d.setBarSpacePercent(20f);
         d.setColors(ColorTemplate.VORDIPLOM_COLORS);
         d.setBarShadowColor(Color.rgb(203, 203, 203));
