@@ -17,7 +17,7 @@ import nanddgroup.graphics.presenters.LogInPresenter;
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class FullscreenActivity extends AppCompatActivity implements LogInPresenter.IView{
+public class FullscreenActivity extends AppCompatActivity implements IDialogHelper {
     @Bind(R.id.etLogin) EditText etLogin;
     @Bind(R.id.etPassword) EditText etPassword;
     @Bind(R.id.bLogIn) Button bLogIn;

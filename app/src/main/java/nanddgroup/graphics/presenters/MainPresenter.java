@@ -13,6 +13,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import nanddgroup.graphics.IDialogHelper;
 import nanddgroup.graphics.MainActivity;
 import nanddgroup.graphics.model.DataResponse;
 import nanddgroup.graphics.model.Item;
@@ -42,11 +43,15 @@ public class MainPresenter {
     private ArrayList<Item> items;
     private MyAsyncTask at;
     private Call<DataResponse> call;
+    private IDialogHelper mView;
 
-    public MainPresenter() {
+
+    public MainPresenter(IDialogHelper view) {
+        mView = view;
         at = new MyAsyncTask();
         at.execute();
     }
+
 
 
     private class MyAsyncTask extends AsyncTask<Void, Void, Void> {
@@ -57,7 +62,7 @@ public class MainPresenter {
             date = new ArrayList<String>();
             list = new ArrayList<BarData>();
             items = new ArrayList<Item>();
-//            call = intf.getData();
+            mView.showLoginProgressDialog();
         }
 
         @Override
@@ -99,6 +104,7 @@ public class MainPresenter {
                 list.add(generateData1(i, profit_month, total_profit, profit_month_money, profit, countOfDiscrets));
             }
             MainActivity.bus.post(list);
+            mView.dismissProgressDialog();
         }
     }
 

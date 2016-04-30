@@ -1,5 +1,6 @@
 package nanddgroup.graphics;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -36,7 +37,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import nanddgroup.graphics.presenters.MainPresenter;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements IDialogHelper{
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
     @Bind(R.id.listView1) ListView lv;
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private ChartDataAdapter cda;
     private ArrayList<BarData> list;
     public static Bus bus;
+    private ProgressDialog mProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         bus = new Bus();
         bus.register(this);
         setToolbar();
-        mp = new MainPresenter();
+        mp = new MainPresenter(this);
 
     }
 
@@ -96,6 +98,20 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void showLoginProgressDialog() {
+        mProgressDialog = new ProgressDialog(MainActivity.this, R.style
+                .AppTheme_Dark_Dialog);
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setMessage(getString(R.string.progress_load_carts));
+        mProgressDialog.show();
+    }
+
+    @Override
+    public void dismissProgressDialog() {
+        mProgressDialog.dismiss();
     }
 
     private class ChartDataAdapter extends ArrayAdapter<BarData> {

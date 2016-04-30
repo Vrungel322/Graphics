@@ -3,6 +3,7 @@
 
     <string name="title_activity_fullscreen">FullscreenActivity</string>
     <string name="progress_authenticate">Authenticating…</string>
+    <string name="progress_load_carts">Charts loading…</string>
     <string name="title">Infographics</string>
     <string name="LogOut">Log out</string>
 </resources>

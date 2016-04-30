@@ -7,9 +7,10 @@ import android.widget.Toast;
 import java.util.HashMap;
 import java.util.Map;
 
+import nanddgroup.graphics.IDialogHelper;
 import nanddgroup.graphics.MainActivity;
-import nanddgroup.graphics.remote.ILogIn;
 import nanddgroup.graphics.model.LogInResponse;
+import nanddgroup.graphics.remote.ILogIn;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -27,13 +28,13 @@ public class LogInPresenter {
             .baseUrl(ILogIn.BASE_URL)
             .build();
     private ILogIn intf = retrofit.create(ILogIn.class);
-    private IView mView;
+    private IDialogHelper mView;
 
     public LogInPresenter(Context context) {
         this.context = context;
     }
 
-    public void setView(IView view) {
+    public void setView(IDialogHelper view) {
         mView = view;
     }
 
@@ -50,7 +51,6 @@ public class LogInPresenter {
         call.enqueue(new Callback<LogInResponse>() {
             @Override
             public void onResponse(Call<LogInResponse> call, Response<LogInResponse> response) {
-                if (response.code() == 200) {
                     LogInResponse lir = new LogInResponse(response.body().getLang(),
                             response.body().getSuccess());
                     if (lir.getSuccess()){
@@ -58,22 +58,15 @@ public class LogInPresenter {
                                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                     }
                     else {
-                        Toast.makeText(context, "FAIL. WRONG DATA", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "FAIL. WRONG LOGIN OR PAS", Toast.LENGTH_SHORT).show();
                     }
-                } else {
-                    Toast.makeText(context, "FAIL. WRONG DATA", Toast.LENGTH_SHORT).show();
-                }
                 mView.dismissProgressDialog();
             }
             @Override
             public void onFailure(Call<LogInResponse> call, Throwable t) {
-                Toast.makeText(context, "FAIL. WRONG DATA", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "FAIL. NO INTERNET", Toast.LENGTH_SHORT).show();
+                mView.dismissProgressDialog();
             }
         });
-    }
-
-    public interface IView {
-        void showLoginProgressDialog();
-        void dismissProgressDialog();
     }
 }
