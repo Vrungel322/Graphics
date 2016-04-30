@@ -1,7 +1,6 @@
 package nanddgroup.graphics;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -82,12 +81,12 @@ public class MainActivity extends AppCompatActivity implements IDialogHelper{
                     Toast.makeText(getApplicationContext(), "Some Item Clicked", Toast.LENGTH_SHORT).show();
                 }
                 if (position == 3){
-                    Intent intent = new Intent(MainActivity.this, FullscreenActivity.class);
-                    startActivity(intent);
+                    finish();
                 }
             }
         });
     }
+
 
     @Override
     public void showLoginProgressDialog() {
