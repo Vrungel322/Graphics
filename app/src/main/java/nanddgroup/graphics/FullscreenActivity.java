@@ -61,4 +61,10 @@ public class FullscreenActivity extends AppCompatActivity implements IDialogHelp
     public void dismissProgressDialog() {
         mProgressDialog.dismiss();
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }
