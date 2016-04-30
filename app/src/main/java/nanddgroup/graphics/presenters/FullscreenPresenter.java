@@ -7,7 +7,7 @@ import android.widget.Toast;
 import java.util.HashMap;
 import java.util.Map;
 
-import nanddgroup.graphics.IDialogHelper;
+import nanddgroup.graphics.utils.IDialogHelper;
 import nanddgroup.graphics.MainActivity;
 import nanddgroup.graphics.model.LogInResponse;
 import nanddgroup.graphics.remote.ILogIn;

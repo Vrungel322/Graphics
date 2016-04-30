@@ -23,9 +23,10 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import nanddgroup.graphics.utils.IDialogHelper;
 import nanddgroup.graphics.presenters.MainPresenter;
 
-public class MainActivity extends AppCompatActivity implements IDialogHelper{
+public class MainActivity extends AppCompatActivity implements IDialogHelper {
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
     @Bind(R.id.listView1) ListView lv;
