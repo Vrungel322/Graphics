@@ -20,7 +20,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * Created by Nikita on 27.04.2016.
  */
-public class LogInPresenter {
+public class FullscreenPresenter {
 
     private Context context;
     private Retrofit retrofit = new Retrofit.Builder()
@@ -30,7 +30,7 @@ public class LogInPresenter {
     private ILogIn intf = retrofit.create(ILogIn.class);
     private IDialogHelper mView;
 
-    public LogInPresenter(Context context) {
+    public FullscreenPresenter(Context context) {
         this.context = context;
     }
 

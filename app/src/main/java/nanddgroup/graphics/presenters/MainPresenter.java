@@ -12,6 +12,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import nanddgroup.graphics.IDialogHelper;
 import nanddgroup.graphics.MainActivity;
@@ -68,6 +69,7 @@ public class MainPresenter {
         @Override
         protected Void doInBackground(Void... params) {
             call = intf.getData();
+            Calendar calendar = Calendar.getInstance();
             try {
                 Response<DataResponse> dr = call.execute();
                 countOfDiscrets = dr.body().getTotal();
@@ -75,19 +77,17 @@ public class MainPresenter {
                 total_profit = new float[countOfDiscrets];
                 profit_month_money = new float[countOfDiscrets];
                 profit = new float[countOfDiscrets];
-//                Log.e("resp", String.valueOf(dr.code() + " " + countOfDiscrets));
                 for (int i = 0; i < countOfDiscrets; i++) {
-//                    items.add(new Item(dr.body().getItems().get(i).getProfit(),
-//                            dr.body().getItems().get(i).getProfitMonthMoney(),
-//                            dr.body().getItems().get(i).getTotalProfit(),
-//                            dr.body().getItems().get(i).getProfitMonth(),
-//                            dr.body().getItems().get(i).getDate()));
 
                     profit[i] = (Float.valueOf(dr.body().getItems().get(i).getProfit()));
                     profit_month_money[i] = (Float.valueOf(dr.body().getItems().get(i).getProfitMonthMoney()));
                     total_profit[i] = (Float.valueOf(dr.body().getItems().get(i).getTotalProfit()));
                     profit_month[i] = (Float.valueOf(dr.body().getItems().get(i).getProfitMonth()));
-                    date.add(dr.body().getItems().get(i).getDate());
+                    //transform milis to date
+                    calendar.setTimeInMillis(Long.parseLong(dr.body().getItems().get(i).getDate()));
+                    date.add(calendar.get(Calendar.DAY_OF_MONTH) + "."
+                            + calendar.get(Calendar.MONTH) + 1 + "."
+                            + calendar.get(Calendar.YEAR));
                     Log.e("TESTresponse", String.valueOf(countOfDiscrets));
                 }
 
@@ -141,8 +141,6 @@ public class MainPresenter {
                 }
                 break;
         }
-
-
         BarDataSet d = new BarDataSet(entries, chartName);
         d.setBarSpacePercent(20f);
         d.setColors(ColorTemplate.VORDIPLOM_COLORS);
@@ -155,12 +153,4 @@ public class MainPresenter {
         return cd;
     }
 
-
-    public float[] getProfit_month() {
-        return profit_month;
-    }
-
-    public int getCountOfDiscrets() {
-        return countOfDiscrets;
-    }
 }
