@@ -14,7 +14,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <LinearLayout
-        android:paddingTop="48dp"
+        android:paddingTop="64dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <ListView

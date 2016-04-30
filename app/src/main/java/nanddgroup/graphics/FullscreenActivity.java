@@ -11,17 +11,17 @@ import android.widget.EditText;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import nanddgroup.graphics.presenters.LogInPresenter;
+import nanddgroup.graphics.presenters.FullscreenPresenter;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class FullscreenActivity extends AppCompatActivity implements LogInPresenter.IView{
+public class FullscreenActivity extends AppCompatActivity implements IDialogHelper {
     @Bind(R.id.etLogin) EditText etLogin;
     @Bind(R.id.etPassword) EditText etPassword;
     @Bind(R.id.bLogIn) Button bLogIn;
-    private LogInPresenter p;
+    private FullscreenPresenter p;
     private String login = "vlad.palamarchuk";
     private String password = "1234.1234";
     private ProgressDialog mProgressDialog;
@@ -35,7 +35,7 @@ public class FullscreenActivity extends AppCompatActivity implements LogInPresen
         ButterKnife.bind(this);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {actionBar.hide();}
-        p = new LogInPresenter(getApplicationContext());
+        p = new FullscreenPresenter(getApplicationContext());
         p.setView(this);
 
         etLogin.setText(login);
