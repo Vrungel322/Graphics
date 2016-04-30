@@ -1,4 +1,4 @@
-package nanddgroup.graphics;
+package nanddgroup.graphics.utils;
 
 /**
  * Created by Nikita on 30.04.2016.

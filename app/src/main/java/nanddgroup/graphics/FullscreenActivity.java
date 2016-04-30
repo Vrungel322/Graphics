@@ -11,6 +11,7 @@ import android.widget.EditText;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import nanddgroup.graphics.utils.IDialogHelper;
 import nanddgroup.graphics.presenters.FullscreenPresenter;
 
 /**

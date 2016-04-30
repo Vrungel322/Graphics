@@ -1,4 +1,4 @@
-package nanddgroup.graphics;
+package nanddgroup.graphics.utils;
 
 import android.content.Context;
 import android.widget.TextView;
@@ -6,6 +6,8 @@ import android.widget.TextView;
 import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
+
+import nanddgroup.graphics.R;
 
 /**
  * Created by Nikita on 30.04.2016.

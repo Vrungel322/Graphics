@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import nanddgroup.graphics.IDialogHelper;
+import nanddgroup.graphics.utils.IDialogHelper;
 import nanddgroup.graphics.MainActivity;
 import nanddgroup.graphics.model.DataResponse;
 import nanddgroup.graphics.model.Item;
