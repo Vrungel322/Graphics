@@ -26,6 +26,8 @@ import butterknife.ButterKnife;
 import nanddgroup.graphics.utils.IDialogHelper;
 import nanddgroup.graphics.presenters.MainPresenter;
 
+//Test commit for fast forward
+
 public class MainActivity extends AppCompatActivity implements IDialogHelper {
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
