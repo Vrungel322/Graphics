@@ -27,6 +27,7 @@ import nanddgroup.graphics.utils.IDialogHelper;
 import nanddgroup.graphics.presenters.MainPresenter;
 
 //Test commit for fast forward
+//Test merge to working tree
 
 public class MainActivity extends AppCompatActivity implements IDialogHelper {
     @Bind(R.id.toolbar)
